@@ -3,6 +3,8 @@ define dhcp::pool (
   $mask,
   $range,
   $gateway,
+  $nextserver = '',
+  $pxefile    = '',
   $failover   = '',
   $options    = '',
   $parameters = ''

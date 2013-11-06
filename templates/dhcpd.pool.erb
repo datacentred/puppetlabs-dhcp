@@ -11,7 +11,10 @@ subnet <%= network %> netmask <%= mask %> {
     range <%= r %>;
 <% end -%>
   }
-
+<% if @nextserver != '' && @pxefile != '' -%>
+  filename "<%= @filename %>";
+  next-server "<%= @nextserver %>";
+<% end -%>
   option subnet-mask <%= mask %>;
   option routers <%= gateway %>;
 <% if options.is_a? Array -%>

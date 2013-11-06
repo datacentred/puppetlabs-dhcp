@@ -1,0 +1,11 @@
+<% if @omapi_key and @omapi_secret then -%>
+# ----------
+# OMAPI Configuration
+# ----------
+omapi-port 7911;
+key <%= @omapi_key %> {
+    algorithm HMAC-MD5;
+    secret "<%= @omapi_secret %>";
+};
+omapi_key <%= @omapi_key %>;
+<% end -%>

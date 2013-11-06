@@ -8,7 +8,7 @@ class dhcp (
   $dhcp_conf_header    = 'dhcp/dhcpd.conf-header.erb', # default template
   $dhcp_conf_pxe       = 'dhcp/dhcpd.conf.pxe.erb',    # default template
   $dhcp_conf_extra     = 'dhcp/dhcpd.conf-extra.erb',  # default template
-  $dhcp_conf_omapi     = 'dhcp/dhcpd.conf-omapi.erb',  # default template
+  $dhcp_conf_omapi     = 'dhcp/dhcpd.conf.omapi.erb',  # default template
   $dhcp_conf_fragments = {},
   $interfaces          = undef,
   $interface           = 'NOTSET',
@@ -19,7 +19,6 @@ class dhcp (
   $max_lease_time      = 86400,
   $failover            = '',
   $ddns                = false,
-  $omapi_key          = '',
   $omapi_secret       = '',
 ) {
 

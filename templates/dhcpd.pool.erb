@@ -2,8 +2,7 @@
 # <%= name network mask %>
 #################################
 subnet <%= network %> netmask <%= mask %> {
-  pool
-  {
+  pool {
 <% if failover != '' -%>
     failover peer "<%= failover %>";
 <% end -%>
@@ -11,8 +10,8 @@ subnet <%= network %> netmask <%= mask %> {
     range <%= r %>;
 <% end -%>
   }
-<% if @nextserver != '' && @pxefile != '' -%>
-  filename "<%= @filename %>";
+<% if @nextserver != '' and @pxefile != '' -%>
+  filename "<%= @pxefile %>";
   next-server "<%= @nextserver %>";
 <% end -%>
   option subnet-mask <%= mask %>;

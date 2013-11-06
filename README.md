@@ -2,6 +2,8 @@
 
 Installs and manages the ISC DHCP daemon.
 
+FIXME - add documentation for OMAPI and per pool PXE handling
+
 ## Features
 
 * Multiple subnet support

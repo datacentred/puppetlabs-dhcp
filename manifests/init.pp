@@ -19,7 +19,8 @@ class dhcp (
   $max_lease_time      = 86400,
   $failover            = '',
   $ddns                = false,
-  $omapi_secret       = '',
+  $omapi_secret        = '',
+  $omapi_key           = 'omapi_key',
 ) {
 
   include dhcp::params

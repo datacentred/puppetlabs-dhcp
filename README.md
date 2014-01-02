@@ -2,8 +2,6 @@
 
 Installs and manages the ISC DHCP daemon.
 
-FIXME - add documentation for OMAPI and per pool PXE handling
-
 ## Features
 
 * Multiple subnet support
@@ -74,6 +72,12 @@ masters.  I use DHCP failover for all of the pools I am managing, so a simple
 default is all I need for this.
 
     Dhcp::Pool { failover => "dhcp-failover" }
+
+## Datacentred changes
+
+The default DDNS handling has been changed so that we can include the key directly into the config file, and so that we can control DDNS on a per pool basis, so at the global scope it is turned off. This change only affects the config file template for the DDNS section.
+
+We've also added OMAPI key handling, so that we can use this module with Foreman correctly.
 
 ## Contributors
 

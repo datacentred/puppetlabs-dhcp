@@ -2,17 +2,23 @@
 # Dynamic DNS Updates
 # ----------
 <% if @enable -%>
-ddns-updates on;
+# Turn off in the global scope so we can control on a per pool basis
+ddns-updates off;
 ddns-update-style interim;
-update-static-leases on;
+# No point in trying to update static leases as Foreman handles them
+update-static-leases off;
 use-host-decl-names on;
 
-# Key from bind
-include "<%= key %>";
+# DDNS key
+key "rndc-key" {
+    algorithm hmac-md5;
+    secret "<%= key %>";
+}
+
 <% domains.each do |dom| -%>
 zone <%= dom %>. {
   primary <%= zonemaster %>;
-  key <%= key.split('/').last %>;
+  key rndc-key;
 }
 
 <% end -%>

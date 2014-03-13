@@ -12,12 +12,12 @@ use-host-decl-names on;
 # DDNS key
 key "rndc-key" {
     algorithm hmac-md5;
-    secret "<%= key %>";
+    secret "<%= @key %>";
 }
 
-<% domains.each do |dom| -%>
+<% @domains.each do |dom| -%>
 zone <%= dom %>. {
-  primary <%= zonemaster %>;
+  primary <%= @zonemaster %>;
   key rndc-key;
 }
 

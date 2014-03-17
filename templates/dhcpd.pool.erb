@@ -1,7 +1,7 @@
 #################################
 # <%= name network mask %>
 #################################
-subnet <%= network %> netmask <%= mask %> {
+subnet <%= @network %> netmask <%= @mask %> {
   pool {
 <% if failover != '' -%>
     failover peer "<%= failover %>";
@@ -14,8 +14,8 @@ subnet <%= network %> netmask <%= mask %> {
   filename "<%= @pxefile %>";
   next-server <%= @nextserver %>;
 <% end -%>
-  option subnet-mask <%= mask %>;
-  option routers <%= gateway %>;
+  option subnet-mask <%= @mask %>;
+  option routers <%= @gateway %>;
 <% if options.is_a? Array -%>
 <%   options.each do |opt| -%>
   option <%= opt %>;

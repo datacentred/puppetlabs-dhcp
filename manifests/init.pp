@@ -65,10 +65,12 @@ class dhcp (
     order   => 01,
   }
 
-  concat::fragment { 'dhcp-conf-pxe':
-    target  => "${dhcp_dir}/dhcpd.conf",
-    content => template($dhcp_conf_pxe),
-    order   => 20,
+  if $pxeserver {
+    concat::fragment { 'dhcp-conf-pxe':
+      target  => "${dhcp_dir}/dhcpd.conf",
+      content => template($dhcp_conf_pxe),
+      order   => 20,
+    }
   }
 
   concat::fragment { 'dhcp-conf-omapi':

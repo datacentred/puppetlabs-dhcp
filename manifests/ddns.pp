@@ -11,7 +11,7 @@ define dhcp::ddns (
   $dhcp_dir    = $dhcp::params::dhcp_dir
   $packagename = $dhcp::params::packagename
 
-  concat::fragment { 'dhcp-conf-ddns':
+  concat::fragment { "dhcp-conf-ddns_${name}":
     target  => "${dhcp_dir}/dhcpd.conf",
     content => template($dhcp_conf_ddns),
     order   => 10,

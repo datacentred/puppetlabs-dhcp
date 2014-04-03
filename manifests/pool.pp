@@ -18,7 +18,7 @@ define dhcp::pool (
       $o = split($network, '[.]')
       $reversezone = "${o[2]}.${o[1]}.${o[0]}.in-addr.arpa"
       class { 'dhcp::ddns':
-        zonemaster => hiera(dns_masters),
+        zonemaster => hiera(dnsmasters),
         key        => hiera(rndc_key),
         domains    => $reversezone,
       }

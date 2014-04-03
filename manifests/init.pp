@@ -124,11 +124,21 @@ class dhcp (
     order   => 01,
   }
 
+  #
+  # Build the dhcpd.zones
+  concat { "${dhcp_dir}/dhcpd.zones": }
+
+  concat::fragment { 'dhcp-zones-header':
+    target  => "${dhcp_dir}/dhcpd.zones",
+    content => "# DDNS zones\n",
+    order   => 01,
+  }
+
   service { $servicename:
     ensure    => running,
     enable    => true,
     hasstatus => true,
-    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.hosts"], File["${dhcp_dir}/dhcpd.conf"]],
+    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.hosts"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
     require   => Package[$packagename],
     restart   => "${dhcpd} -t && service ${servicename} restart",
   }

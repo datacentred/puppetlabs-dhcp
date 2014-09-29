@@ -124,8 +124,9 @@ class dhcp (
   #  content => "# static DHCP hosts\n",
   #  order   => 01,
   #}
-  file { "${dhcp_dir}/dhcpd.hosts":
-    ensure => file,
+  exec { 'dhcpd.hosts':
+    cmd    => "touch ${dhcp_dir}/dhcpd.hosts",
+    unless => "ls ${dhcp_dir}/dhcpd.hosts",
   }
 
   #
@@ -142,7 +143,7 @@ class dhcp (
     ensure    => running,
     enable    => true,
     hasstatus => true,
-    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.hosts"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
+    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
     require   => Package[$packagename],
     restart   => "${dhcpd} -t && service ${servicename} restart",
   }

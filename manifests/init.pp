@@ -125,8 +125,8 @@ class dhcp (
   #  order   => 01,
   #}
   exec { 'dhcpd.hosts':
-    cmd    => "touch ${dhcp_dir}/dhcpd.hosts",
-    unless => "ls ${dhcp_dir}/dhcpd.hosts",
+    command => "touch ${dhcp_dir}/dhcpd.hosts",
+    unless  => "ls ${dhcp_dir}/dhcpd.hosts",
   }
 
   #

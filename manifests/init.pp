@@ -116,12 +116,16 @@ class dhcp (
 
   #
   # Build the dhcpd.hosts
-  concat { "${dhcp_dir}/dhcpd.hosts": }
-
-  concat::fragment { 'dhcp-hosts-header':
-    target  => "${dhcp_dir}/dhcpd.hosts",
-    content => "# static DHCP hosts\n",
-    order   => 01,
+  # SM: This is handled by the synchronisation agent daemon
+  #concat { "${dhcp_dir}/dhcpd.hosts": }
+  #
+  #concat::fragment { 'dhcp-hosts-header':
+  #  target  => "${dhcp_dir}/dhcpd.hosts",
+  #  content => "# static DHCP hosts\n",
+  #  order   => 01,
+  #}
+  file { "${dhcp_dir}/dhcpd.hosts":
+    ensure => file,
   }
 
   #

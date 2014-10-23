@@ -116,12 +116,17 @@ class dhcp (
 
   #
   # Build the dhcpd.hosts
-  concat { "${dhcp_dir}/dhcpd.hosts": }
-
-  concat::fragment { 'dhcp-hosts-header':
-    target  => "${dhcp_dir}/dhcpd.hosts",
-    content => "# static DHCP hosts\n",
-    order   => 01,
+  # SM: This is handled by the synchronisation agent daemon
+  #concat { "${dhcp_dir}/dhcpd.hosts": }
+  #
+  #concat::fragment { 'dhcp-hosts-header':
+  #  target  => "${dhcp_dir}/dhcpd.hosts",
+  #  content => "# static DHCP hosts\n",
+  #  order   => 01,
+  #}
+  exec { 'dhcpd.hosts':
+    command => "touch ${dhcp_dir}/dhcpd.hosts",
+    unless  => "ls ${dhcp_dir}/dhcpd.hosts",
   }
 
   #
@@ -138,7 +143,7 @@ class dhcp (
     ensure    => running,
     enable    => true,
     hasstatus => true,
-    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.hosts"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
+    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
     require   => Package[$packagename],
     restart   => "${dhcpd} -t && service ${servicename} restart",
   }

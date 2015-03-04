@@ -51,6 +51,7 @@ class dhcp (
   case $operatingsystem {
     'debian','ubuntu': {
       include dhcp::debian
+      Service { subscribe => File['/etc/default/isc-dhcp-server'] }
     }
   }
 

@@ -19,13 +19,15 @@ define dhcp::pool (
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 
-  if member($parameters, 'ddns-updates on') {
-      $o = split($network, '[.]')
-      $reversezone = "${o[2]}.${o[1]}.${o[0]}.in-addr.arpa"
-      concat::fragment { "dhcp_zone_${name}":
-        target  => "${dhcp_dir}/dhcpd.zones",
-        content => template('dhcp/dhcpd.zone.erb'),
-      }
+  if $dhcp::ddns {
+    if member($parameters, 'ddns-updates on') {
+        $o = split($network, '[.]')
+        $reversezone = "${o[2]}.${o[1]}.${o[0]}.in-addr.arpa"
+        concat::fragment { "dhcp_zone_${name}":
+          target  => "${dhcp_dir}/dhcpd.zones",
+          content => template('dhcp/dhcpd.zone.erb'),
+        }
+    }
   }
 
   concat::fragment { "dhcp_pool_${name}":

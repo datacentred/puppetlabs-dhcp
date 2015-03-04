@@ -3,5 +3,6 @@
 # ----------
 include "<%= @dhcp_dir %>/dhcpd.pools";
 include "<%= @dhcp_dir %>/dhcpd.hosts";
+<%- if @ddns -%>
 include "<%= @dhcp_dir %>/dhcpd.zones";
-
+<%- end -%>

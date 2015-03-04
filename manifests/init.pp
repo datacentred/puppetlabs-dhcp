@@ -21,6 +21,8 @@ class dhcp (
   $ddns                = false,
   $omapi_secret        = '',
   $omapi_key           = 'omapi_key',
+  $manage_service      = true,
+  $leases_file         = undef,
 ) {
 
   include dhcp::params
@@ -131,21 +133,25 @@ class dhcp (
 
   #
   # Build the dhcpd.zones
-  concat { "${dhcp_dir}/dhcpd.zones": }
+  if $ddns {
+    concat { "${dhcp_dir}/dhcpd.zones": }
 
-  concat::fragment { 'dhcp-zones-header':
-    target  => "${dhcp_dir}/dhcpd.zones",
-    content => "# DDNS zones\n",
-    order   => 01,
+    concat::fragment { 'dhcp-zones-header':
+      target  => "${dhcp_dir}/dhcpd.zones",
+      content => "# DDNS zones\n",
+      order   => 01,
+    }
   }
 
-  service { $servicename:
-    ensure    => running,
-    enable    => true,
-    hasstatus => true,
-    subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
-    require   => Package[$packagename],
-    restart   => "${dhcpd} -t && service ${servicename} restart",
+  if $manage_service {
+    service { $servicename:
+      ensure    => running,
+      enable    => true,
+      hasstatus => true,
+      subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
+      require   => Package[$packagename],
+      restart   => "${dhcpd} -t && service ${servicename} restart",
+    }
   }
 
   include dhcp::monitor

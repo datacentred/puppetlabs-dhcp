@@ -7,7 +7,8 @@ define dhcp::pool (
   $pxefile    = '',
   $failover   = '',
   $options    = '',
-  $parameters = ''
+  $parameters = '',
+  $range_params = '',
 ) {
 
   include dhcp::params

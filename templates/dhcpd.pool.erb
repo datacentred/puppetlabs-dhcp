@@ -9,6 +9,13 @@ subnet <%= @network %> netmask <%= @mask %> {
 <% @range.each_line do |r| -%>
     range <%= r %>;
 <% end -%>
+<% if @range_params.is_a? Array -%>
+<%   @range_params.each do |param| -%>
+    <%= param %>;
+<%   end -%>
+<% elsif @range_params != '' -%>
+    <%= @range_params %>;
+<% end -%>
   }
 <% if @nextserver != '' and @pxefile != '' -%>
   filename "<%= @pxefile %>";

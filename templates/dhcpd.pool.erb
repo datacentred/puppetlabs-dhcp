@@ -14,7 +14,7 @@ subnet <%= @network %> netmask <%= @mask %> {
     <%= param %>;
 <%   end -%>
 <% elsif @range_params != '' -%>
-  <%= @range_params %>;
+    <%= @range_params %>;
 <% end -%>
   }
 <% if @nextserver != '' and @pxefile != '' -%>

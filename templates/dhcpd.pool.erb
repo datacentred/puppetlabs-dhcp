@@ -3,7 +3,7 @@
 #################################
 subnet <%= @network %> netmask <%= @mask %> {
   pool {
-<% if @failover != '' -%>
+<% if @failover -%>
     failover peer "<%= @failover %>";
 <% end -%>
 <% @range.each_line do |r| -%>

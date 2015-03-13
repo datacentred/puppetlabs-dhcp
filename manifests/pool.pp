@@ -5,7 +5,7 @@ define dhcp::pool (
   $gateway    = '',
   $nextserver = '',
   $pxefile    = '',
-  $failover   = '',
+  $failover   = false,
   $options    = '',
   $parameters = '',
   $range_params = '',

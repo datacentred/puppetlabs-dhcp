@@ -1,11 +1,11 @@
 define dhcp::pool (
   $network,
   $mask,
-  $range,
+  $range      = '',
   $gateway    = '',
   $nextserver = '',
   $pxefile    = '',
-  $failover   = false,
+  $failover   = '',
   $options    = '',
   $parameters = '',
   $range_params = '',

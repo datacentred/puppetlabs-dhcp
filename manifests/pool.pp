@@ -1,6 +1,7 @@
 define dhcp::pool (
   $network,
   $mask,
+  $zonemaster,
   $range      = '',
   $gateway    = '',
   $nextserver = '',
@@ -12,11 +13,6 @@ define dhcp::pool (
 ) {
 
   include dhcp::params
-
-  $nameservers = hiera(dnsmasters)
-  # Expectation is that the first element of the dnsmasters
-  # array in Hiera is the primary
-  $zonemaster = $nameservers[0]
 
   $dhcp_dir = $dhcp::params::dhcp_dir
 

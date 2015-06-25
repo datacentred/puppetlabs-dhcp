@@ -3,7 +3,7 @@
 # ----------
 include "<%= @dhcp_dir %>/dhcpd.pools";
 include "<%= @dhcp_dir %>/dhcpd.hosts";
-include "<%= @dhcp_dir %>/dhcpd.icinga";
+include "<%= @dhcp_dir %>/dhcpd.misc";
 <%- if @ddns -%>
 include "<%= @dhcp_dir %>/dhcpd.zones";
 <%- end -%>

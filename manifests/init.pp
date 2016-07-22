@@ -55,7 +55,6 @@ class dhcp (
     }
   }
 
-  include concat::setup
   Concat { require => Package[$packagename] }
 
   #
@@ -149,7 +148,7 @@ class dhcp (
       ensure    => running,
       enable    => true,
       hasstatus => true,
-      subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], File["${dhcp_dir}/dhcpd.conf"]],
+      subscribe => [Concat["${dhcp_dir}/dhcpd.pools"], Concat["${dhcp_dir}/dhcpd.zones"], Concat["${dhcp_dir}/dhcpd.conf"]],
       require   => Package[$packagename],
       restart   => "${dhcpd} -t && service ${servicename} restart",
     }

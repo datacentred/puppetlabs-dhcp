@@ -24,7 +24,16 @@ subnet <%= @network %> netmask <%= @mask %> {
   }
 <% end -%>
 <% if @nextserver != '' and @pxefile != '' -%>
-  filename "<%= @pxefile %>";
+  class "pxeclients" {
+    match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
+    if option architecture-type = 7 {
+      filename "syslinux.efi";
+    } elsif option architecture-type = 9 {
+      filename "syslinux.efi";
+    } else {
+      filename "pxelinux.0";
+    }
+  }
   next-server <%= @nextserver %>;
 <% end -%>
   option subnet-mask <%= @mask %>;
